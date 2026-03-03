@@ -24,7 +24,7 @@
                                 </div>
 
                                 <div class="">
-                                    <table class="table embeds-data-table table-responsive table-bordered table-hover mb-0" id="battlebotTable">
+                                    <table class="table embeds-data-table table-responsive table-bordered table-hover mb-0" id="embedsTable">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -105,7 +105,8 @@
                             <option value="weight_classes">Weight Classes</option>
                             <option value="vendors">Vendors</option>
                             <option value="youtube_channel">Youtube Channel</option>
-                            <option value="notable_community_members">Notable Community Members</option>
+                            <option value="tools">Tools</option>
+                            <option value="robot_combat_starter_kits">Robot Combat Starter Kits</option>
                         </select>
                     </div>
                 `;
@@ -151,7 +152,7 @@
                                 toastr.error(response.error);
                             } else {
                                 toastr.success(response.message);
-                                $('#battlebotTable').DataTable().ajax.reload(null, false);
+                                $('#embedsTable').DataTable().ajax.reload(null, false);
                             }
                         },
                         error: function(xhr, textStatus, errorThrown) {

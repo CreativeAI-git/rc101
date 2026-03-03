@@ -46,28 +46,29 @@ class EmbedController extends Controller
                         'weight_classes' => 'Weight Classes',
                         'vendors' => 'Vendors',
                         'youtube_channel' => 'Youtube Channel',
-                        'notable_community_members' => 'Notable Community Members',
+                        'tools' => 'Tools',
+                        'robot_combat_starter_kits' => 'Robot Combat Starter Kits',
                     ];
                     return $types[$row->menu_type] ?? ucfirst(str_replace('_', ' ', $row->menu_type));
                 })
                 ->addColumn('action', function ($row) {
                     return '
-                <div class="d-flex align-items-center gap-3">
-                    <a href="' . url('cms/embeds-edit/' . $row->id) . '">
-                        <lord-icon src="https://cdn.lordicon.com/wuvorxbv.json"
-                            trigger="hover"
-                            colors="primary:#333333,secondary:#333333"
-                            style="width:20px;height:20px">
-                        </lord-icon>
-                    </a>
-                    <a href="javascript:;" onclick="deleteConfirm(' . $row->id . ')">
-                        <lord-icon src="https://cdn.lordicon.com/drxwpfop.json"
-                            trigger="hover"
-                            colors="primary:#ff0000,secondary:#ff0000"
-                            style="width:20px;height:20px">
-                        </lord-icon>
-                    </a>
-                </div>';
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="' . url('cms/embeds-edit/' . $row->id) . '">
+                            <lord-icon src="https://cdn.lordicon.com/wuvorxbv.json"
+                                trigger="hover"
+                                colors="primary:#333333,secondary:#333333"
+                                style="width:20px;height:20px">
+                            </lord-icon>
+                        </a>
+                        <a href="javascript:;" onclick="deleteConfirm(' . $row->id . ')">
+                            <lord-icon src="https://cdn.lordicon.com/drxwpfop.json"
+                                trigger="hover"
+                                colors="primary:#ff0000,secondary:#ff0000"
+                                style="width:20px;height:20px">
+                            </lord-icon>
+                        </a>
+                    </div>';
                 })
                 ->rawColumns(['image', 'embed_link', 'action'])
                 ->make(true);
@@ -98,7 +99,7 @@ class EmbedController extends Controller
         $request->validate([
             'title' => 'required|string|max:150',
             'type' => 'required|in:doc,slide,link',
-            'menu_type' => 'required|in:lexicon,weight_classes,vendors,youtube_channel,notable_community_members',
+            'menu_type' => 'required|in:lexicon,weight_classes,vendors,youtube_channel,tools,robot_combat_starter_kits',
             'embed_link' => 'required|url',
             'linked_name' => 'nullable|string|max:100',
             'image' => 'nullable|image|max:2048',
@@ -161,7 +162,7 @@ class EmbedController extends Controller
             'id' => 'required', // Ensure an id is provided for updating
             'title' => 'required|string|max:150',
             'type' => 'required|in:doc,slide,link',
-            'menu_type' => 'required|in:lexicon,weight_classes,vendors,youtube_channel,notable_community_members',
+            'menu_type' => 'required|in:lexicon,weight_classes,vendors,youtube_channel,tools,robot_combat_starter_kits',
             'embed_link' => 'required',
             'linked_name' => 'nullable|string|max:100',
             'image' => 'nullable|image|max:2048',

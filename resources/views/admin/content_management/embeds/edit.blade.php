@@ -59,7 +59,8 @@
                                                     <option value="weight_classes" {{ (old('menu_type', $embedsData->menu_type ?? '') == 'weight_classes') ? 'selected' : '' }}>Weight Classes</option>
                                                     <option value="vendors" {{ (old('menu_type', $embedsData->menu_type ?? '') == 'vendors') ? 'selected' : '' }}>Vendors</option>
                                                     <option value="youtube_channel" {{ (old('menu_type', $embedsData->menu_type ?? '') == 'youtube_channel') ? 'selected' : '' }}>Youtube Channel</option>
-                                                    <option value="notable_community_members" {{ (old('menu_type', $embedsData->menu_type ?? '') == 'notable_community_members') ? 'selected' : '' }}>Notable Community Members</option>
+                                                    <option value="tools" {{ (old('menu_type', $embedsData->menu_type ?? '') == 'tools') ? 'selected' : '' }}>Tools</option>
+                                                    <option value="robot_combat_starter_kits" {{ (old('menu_type', $embedsData->menu_type ?? '') == 'robot_combat_starter_kits') ? 'selected' : '' }}>Robot Combat Starter Kits</option>
                                                 </select>
                                                 @error('menu_type')
                                                 <div class="text text-danger mt-2">{{ $message }}</div>

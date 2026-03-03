@@ -144,20 +144,20 @@ Route::middleware(['google.auth:teacher'])->group(function () {
     Route::prefix('teacher')->group(function () {
         Route::controller(PaymentController::class)->group(function () {
             Route::get('subscriptions', 'getSubscriptions');
-            Route::post('checkout', 'checkout');
             Route::post('payment-success', 'success');
-            Route::post('cancel-subscription', 'cancelSubscription');
+            
+            // Apply rate limit only here
+            Route::post('checkout', 'checkout')->middleware('throttle:payment');
+            Route::post('cancel-subscription', 'cancelSubscription')->middleware('throttle:payment');
         });
 
         Route::controller(ContentManagementController::class)->group(function () {
             Route::get('get-unit-categories', 'getUnitCategories');
             Route::get('get-all-curriculums', 'getAllCurriculums');
-            // Route::get('get-all-curriculum-assignments', 'getAllCurriculumAssignments');
             Route::get('curriculum/pdf-download/{id}', 'downloadPdf')->name('curriculum.pdf.download');
             Route::post('update-curriculum-sequence', 'updateCurriculumSequence');
         });
 
-        
     });
 });
 

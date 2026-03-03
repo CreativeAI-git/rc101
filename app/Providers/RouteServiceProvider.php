@@ -28,6 +28,21 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
+        /*
+        |--------------------------------------------------------------------------
+        | Payment Rate Limiter (STRICT)
+        |--------------------------------------------------------------------------
+        */
+        RateLimiter::for('payment', function (Request $request) {
+            $teacher = $request->user(); // from google.auth middleware
+            return [
+                // Per user limit
+                Limit::perMinute(3)->by(optional($teacher)->id ?: $request->ip()),
+                // Per IP limit (extra protection)
+                Limit::perMinute(5)->by($request->ip()),
+            ];
+        });
+
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')
