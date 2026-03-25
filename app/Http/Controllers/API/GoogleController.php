@@ -179,28 +179,19 @@ class GoogleController extends Controller
                 ]);
             }
 
-            // Fetch only valid active subscription
-            $subscription = UserSubscription::where('user_id', $user->id)
-                ->where('status', 1)
-                ->where(function ($q) {
-                    $q->whereNull('start_date')
-                        ->orWhere('start_date', '<=', now());
-                })
-                ->where(function ($q) {
-                    $q->whereNull('end_date')
-                        ->orWhere('end_date', '>=', now());
-                })
-                ->with('subscription')
-                ->orderByDesc('subscription_id')
-                ->first();
+            // Ensure active free plan status is correct by end date
+            UserSubscription::where('user_id', $user->id)
+                ->where('type', 'free')
+                ->whereDate('end_date', '>=', now()->toDateString())
+                ->update(['status' => 1]);
+        
 
             Auth::login($user);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
-                'user' => $user,
-                'subscription' => $subscription
+                'user' => $user
             ]);
         } catch (\Exception $e) {
             return response()->json([

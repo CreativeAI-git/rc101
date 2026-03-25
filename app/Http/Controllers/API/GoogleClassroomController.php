@@ -303,7 +303,7 @@ class GoogleClassroomController extends Controller
         }
 
         // Define student limits based on subscription type
-        $maxStudents = $subscription->type === 'free' ? $subscription->user_access_count : $subscription->subscription->user_access_count;
+        $maxStudents = $subscription->type === 'free' ? $subscription->subscription->user_access_count : $subscription->subscription->user_access_count;
         $currentStudents = ClassroomStudent::where('teacher_id', $teacher->id)->count();
 
         if ($currentStudents >= $maxStudents) {
@@ -649,6 +649,12 @@ class GoogleClassroomController extends Controller
             // $service = new Classroom($this->client);
             // $totalCourses = count($service->courses->listCourses());
 
+            $subscription = UserSubscription::where('user_id', $teacher->id)
+            ->with('subscription')
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->first();
+
             return response()->json([
                 'success' => true,
                 'data' => [
@@ -657,6 +663,8 @@ class GoogleClassroomController extends Controller
                     'active_assignments' => $activeAssignments,
                     'total_courses' => $totalCourses,
                 ],
+                'subscriptions' => $subscription,
+                'message' => 'Dashboard data fetched successfully'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([

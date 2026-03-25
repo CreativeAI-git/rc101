@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\CMS;
 use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use App\Models\UserSubscription;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -391,6 +392,9 @@ class SubscriptionController extends Controller
         }
 
         $subscription->end_date = $request->end_date;
+        if (Carbon::parse($request->end_date)->isAfter(Carbon::today())) {
+            $subscription->status = 1;
+        }
         $subscription->save();
 
         return response()->json(['success' => true, 'message' => 'End date updated successfully']);
