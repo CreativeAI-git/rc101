@@ -51,8 +51,9 @@
 </div>
 
 <script type="text/javascript">
+    var table;
     $(function() {
-        var table = $('.subscriber-data-table').DataTable({
+        table = $('.subscriber-data-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ url('list-subscriber') }}",

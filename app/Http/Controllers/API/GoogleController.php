@@ -179,10 +179,10 @@ class GoogleController extends Controller
                 ]);
             }
 
-            // Ensure active free plan status is correct by end date
+            // Ensure active free plan status is correct by end date/time
             UserSubscription::where('user_id', $user->id)
                 ->where('type', 'free')
-                ->whereDate('end_date', '>=', now()->toDateString())
+                ->where('end_date', '>=', now())
                 ->update(['status' => 1]);
         
 

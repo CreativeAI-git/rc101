@@ -285,6 +285,16 @@ class GoogleClassroomController extends Controller
             return response()->json(['success' => false, 'message' => 'Access denied. Only teachers can add students.'], 403);
         }
 
+        // Expire any past-due subscriptions for this teacher before checking active
+        UserSubscription::where('user_id', $teacher->id)
+            ->where('status', 1)
+            ->whereNotNull('end_date')
+            ->where('end_date', '<', now())
+            ->update([
+                'status' => 2,
+                'stripe_subscription_id' => null,
+            ]);
+
         // Validate request
         $validated = $request->validate([
             'course_id' => 'required|string',

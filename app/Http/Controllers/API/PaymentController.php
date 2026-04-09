@@ -45,6 +45,16 @@ class PaymentController extends Controller
             return response()->json(['success' => false, 'message' => 'Access denied. Please log in with a teacher account.'], 400);
         }
 
+        // Expire any past-due subscriptions for this teacher before checking active
+        UserSubscription::where('user_id', $teacher->id)
+            ->where('status', 1)
+            ->whereNotNull('end_date')
+            ->where('end_date', '<', date('Y-m-d'))
+            ->update([
+                'status' => 2,
+                'stripe_subscription_id' => null,
+            ]);
+
         // Fetch all available subscriptions
         $subscriptions = Subscription::all();
 

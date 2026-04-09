@@ -225,6 +225,15 @@ class SubscriptionController extends Controller
     public function listSubscriber(Request $request)
     {
         if ($request->ajax()) {
+            // Expire any past-due subscriptions before listing
+            UserSubscription::where('status', 1)
+                ->whereNotNull('end_date')
+                ->where('end_date', '<', now())
+                ->update([
+                    'status' => 2,
+                    'stripe_subscription_id' => null,
+                ]);
+
             $data = UserSubscription::with(['subscription', 'user'])->orderBy('id', 'DESC')->get();
 
             return DataTables::of($data)
@@ -305,10 +314,14 @@ class SubscriptionController extends Controller
                     return "$ " . $amount;
                 })
                 ->addColumn('status', function ($row) {
-                    if ($row->end_date > date('Y-m-d')) {
+                    if ($row->status == 1) {
                         return '<span style="color:green; font-weight:bold;">Active</span>';
-                    } else {
+                    } else if ($row->status == 2) {
                         return '<span style="color:red; font-weight:bold;">Expired</span>';
+                    } else if ($row->status == 0) {
+                        return '<span style="color:orange; font-weight:bold;">Cancelled</span>';
+                    } else {
+                        return '<span style="color:blue; font-weight:bold;">Pending</span>';
                     }
                 })
                 ->rawColumns(['user_name', 'subscription_name', 'amount', 'end_date', 'user_access_count', 'status', 'actions'])
@@ -383,7 +396,7 @@ class SubscriptionController extends Controller
     {
         $request->validate([
             'id' => 'required|integer',
-            'end_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date',
         ]);
 
         $subscription = UserSubscription::find($request->id);
@@ -391,10 +404,14 @@ class SubscriptionController extends Controller
             return response()->json(['success' => false, 'message' => 'Subscription not found']);
         }
 
-        $subscription->end_date = $request->end_date;
-        if (Carbon::parse($request->end_date)->isAfter(Carbon::today())) {
-            $subscription->status = 1;
+        $rawEndDate = $request->end_date;
+        $endDate = Carbon::parse($rawEndDate);
+        // If only a date is provided (no time), treat it as end of that day
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $rawEndDate)) {
+            $endDate = $endDate->endOfDay();
         }
+        $subscription->end_date = $endDate;
+        $subscription->status = $endDate->greaterThanOrEqualTo(now()) ? 1 : 2;
         $subscription->save();
 
         return response()->json(['success' => true, 'message' => 'End date updated successfully']);
