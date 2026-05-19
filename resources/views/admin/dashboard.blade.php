@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="widget-desc">
                                             <h3 class="text-center">{{ $totalUser }}</h3>
-                                            <h5><a href="{{url('users/list-student');}}">All Users</a></h5>
+                                            <h5><a href="{{url('users/list-student');}}">All Students</a></h5>
 
                                         </div>
                                     </div>

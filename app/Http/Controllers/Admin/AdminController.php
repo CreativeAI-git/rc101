@@ -57,7 +57,7 @@ class AdminController extends Controller
         $currentDate = Carbon::now();
 
         $data['totalSubscription'] = Subscription::count();
-        $data['totalUser'] = User::whereNotNull('google_id')->count();
+        $data['totalUser'] = User::whereNotNull('google_id')->where('role_id', '=', 2)->count();
         $data['totalSubscriber'] = UserSubscription::count();
         $total = UserSubscription::with('subscription')
             ->whereDate('created_at', $today)

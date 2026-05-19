@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CMS\BattleBotController;
@@ -72,6 +73,7 @@ use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\MediaContentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\TeamMemberController;
+use App\Http\Controllers\Admin\GoogleAnalyticsAuthController;
 use Google\Service\Classroom\Teacher;
 
 /*
@@ -112,6 +114,11 @@ Route::group(['middleware' => ['admin']], function () {
         Route::post('/update-profile', 'updateProfile')->name('update-profile');
         Route::get('/change-password', 'changePassword')->name('change-password');
         Route::post('/update-password', 'updatePassword')->name('update-password');
+    });
+
+    Route::controller(GoogleAnalyticsAuthController::class)->group(function () {
+        Route::get('/google/analytics/connect', 'connect')->name('admin.google.analytics.connect');
+        Route::get('/google/analytics/callback', 'callback')->name('admin.google.analytics.callback');
     });
 
     // // route for products
@@ -835,4 +842,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('list-subscriber', [SubscriptionController::class, 'listSubscriber']);
     Route::post('update-end-date', [SubscriptionController::class, 'updateEndDate']);
     Route::post('update-user-access-count', [SubscriptionController::class, 'updateUserAccessCount']);
+
+    // route for analytics
+    Route::get('/analytics', [AnalyticsController::class, 'index']);
 });
