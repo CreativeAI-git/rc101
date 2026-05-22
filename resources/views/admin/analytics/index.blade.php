@@ -1,6 +1,18 @@
 @extends('admin.layouts.app')
 
 @section('content')
+<style>
+    .ga-metric-icon {
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ga-icon-orange { color: #ff8a00; }
+    .ga-icon-indigo { color: #4b00ff; }
+    .ga-icon-teal { color: #00a6a6; }
+    .ga-icon-rose { color: #e11d48; }
+</style>
 <div class="main-content introduction-farm">
     <div class="content-wraper-area">
         <div class="dashboard-area">
@@ -50,85 +62,95 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="text-muted">New Users</div>
-                                        <div id="gaNewUsers" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
-                                    </div>
-                                    <div style="color: #f16919;"><i class='bx bx-user fs-2'></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <div>
+                                         <div class="text-muted">New Users</div>
+                                         <div id="gaNewUsers" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon ga-icon-orange"><i class='bx bx-user-plus fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
                     <div class="col-sm-6 col-lg-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="text-muted">Total/Active Users</div>
-                                        <div id="gaActiveUsers" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
-                                    </div>
-                                    <div class="text-success"><i class='bx bx-pulse fs-2'></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <div>
+                                         <div class="text-muted">Total/Active Users</div>
+                                         <div id="gaActiveUsers" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon text-success"><i class='bx bx-pulse fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
                     <div class="col-sm-6 col-lg-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="text-muted">Sessions</div>
-                                        <div id="gaSessions" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
-                                    </div>
-                                    <div class="text-warning"><i class='bx bx-timer fs-2'></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <div>
+                                         <div class="text-muted">Sessions</div>
+                                         <div id="gaSessions" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon text-warning"><i class='bx bx-stopwatch fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
                     <div class="col-sm-6 col-lg-3">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="text-muted">Page Views</div>
-                                        <div id="gaPageViews" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
-                                    </div>
-                                    <div class="text-info"><i class='bx bx-bar-chart-alt-2 fs-2'></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <div>
+                                         <div class="text-muted">Page Views</div>
+                                         <div id="gaPageViews" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon text-info"><i class='bx bx-bar-chart-alt-2 fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="text-muted">Real-time Users</div>
-                                        <div id="gaRealtimeUsers" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
-                                    </div>
-                                    <div class="text-primary"><i class='bx bx-radar fs-2'></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                     <div>
+                                         <div class="text-muted">Real-time Users</div>
+                                         <div id="gaRealtimeUsers" class="h3 mb-0 placeholder-glow"><span class="placeholder col-6"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon ga-icon-indigo"><i class='bx bx-radar fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
 
-                    <!-- Secondary Metrics -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-muted">Average Session Duration</div>
-                                <div id="gaAvgSessionDuration" class="h4 mb-0 placeholder-glow"><span class="placeholder col-7"></span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-muted">Bounce Rate</div>
-                                <div id="gaBounceRate" class="h4 mb-0 placeholder-glow"><span class="placeholder col-5"></span></div>
-                            </div>
-                        </div>
-                    </div>
+                     <!-- Secondary Metrics -->
+                     <div class="col-md-4">
+                         <div class="card">
+                             <div class="card-body">
+                                 <div class="d-flex justify-content-between align-items-center">
+                                     <div>
+                                         <div class="text-muted">Average Session Duration</div>
+                                         <div id="gaAvgSessionDuration" class="h4 mb-0 placeholder-glow"><span class="placeholder col-7"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon ga-icon-teal"><i class='bx bx-time-five fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="card">
+                             <div class="card-body">
+                                 <div class="d-flex justify-content-between align-items-center">
+                                     <div>
+                                         <div class="text-muted">Bounce Rate</div>
+                                         <div id="gaBounceRate" class="h4 mb-0 placeholder-glow"><span class="placeholder col-5"></span></div>
+                                     </div>
+                                     <div class="ga-metric-icon ga-icon-rose"><i class='bx bx-trending-down fs-2'></i></div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
 
                     <!-- Charts -->
                     <div class="col-lg-8">
