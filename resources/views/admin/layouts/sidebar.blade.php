@@ -22,6 +22,10 @@
                         <a href="{{ url('dashboard') }}"><i class='bx bxs-dashboard'></i> Dashboard</a>
                     </li>
 
+                    <li class="menu-header-title {{ request()->is('analytics', 'analytics/*') ? 'active' : '' }} ps-0">
+                        <a href="{{ url('analytics') }}"><i class='bx bx-line-chart'></i> Analytics</a>
+                    </li>
+
                     <!-- <li class="menu-header-title {{ request()->is('list-product', 'add-product', 'edit-product/*') ? 'active' : '' }} ps-0">
                         <a href="{{ url('list-product') }}"><i class='bx bxl-product-hunt'></i> Products</a>
                     </li> -->
@@ -101,9 +105,9 @@
                     <!-- <li class="menu-header-title {{ request()->is('list-order') ? 'active' : '' }} ps-0">
                         <a href="{{ url('list-order') }}"><i class='bx bx-receipt'></i> Orders</a>
                     </li> -->
-                    
-                    <li class="menu-header-title {{ request()->is('list-subscriber') ? 'active' : '' }} ps-0">
-                        <a href="{{ url('list-subscriber') }}"><i class='bx bx-receipt'></i> Subscribers</a>
+
+                    <li class="menu-header-title {{ request()->is('subscriber-list') ? 'active' : '' }} ps-0">
+                        <a href="{{ url('subscriber-list') }}"><i class='bx bx-receipt'></i> Subscribers</a>
                     </li>
 
                     <li class="menu-header-title treeview ps-0 {{ request()->is('cms/*') ? 'menu-open active' : '' }}">

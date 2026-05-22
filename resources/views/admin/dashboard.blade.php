@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="widget-desc">
                                             <h3 class="text-center">{{ $totalSubscriber }}</h3>
-                                            <h5><a href="{{url('list-subscriber');}}">All Subscribers</a></h5>
+                                            <h5><a href="{{url('subscriber-list');}}">All Subscribers</a></h5>
                                         </div>
                                     </div>
 
@@ -117,7 +117,7 @@
                                         </div>
                                         <div class="widget-desc">
                                             <h3 class="text-center">${{ $totalOverAllSales }}</h3>
-                                            <h5><a href="{{url('list-subscriber');}}">Total Sales</a></h5>
+                                            <h5><a href="{{url('subscriber-list');}}">Total Sales</a></h5>
 
                                         </div>
                                     </div>

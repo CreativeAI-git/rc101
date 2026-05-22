@@ -56,7 +56,7 @@
         table = $('.subscriber-data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ url('list-subscriber') }}",
+            ajax: "{{ url('subscriber-list') }}",
             columns: [{
                     data: 'serial_number',
                     name: 'serial_number'
