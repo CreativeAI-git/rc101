@@ -36,4 +36,11 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
+
+    'google_analytics' => [
+        'property_id' => env('GOOGLE_ANALYTICS_PROPERTY_ID'),
+        // Use the GA4 property timezone (Settings > Property settings > Reporting time zone)
+        // to match GA UI "Last X days" cards.
+        'timezone' => env('GOOGLE_ANALYTICS_TIMEZONE', 'UTC'),
+    ],
 ];

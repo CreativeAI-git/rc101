@@ -7170,6 +7170,7 @@ label {
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -7284,6 +7285,18 @@ p.ct_para_description {
     /* border: 1.5px solid #eaa347; */
     border: 1.5px solid #ccced1;
     outline: none;
+}
+
+.ga-btn-outline {
+    background-color: transparent !important;
+    border: 1px solid #d78d2e !important;
+    color: #000 !important;
+    outline: none;
+}
+
+.ga-btn-outline:hover {
+    color: #fff !important;
+    border-color: transparent !important;
 }
 
 /* .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {

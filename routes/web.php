@@ -121,6 +121,12 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/google/analytics/callback', 'callback')->name('admin.google.analytics.callback');
     });
 
+    // GA4 Analytics dashboard
+    Route::controller(AnalyticsController::class)->group(function () {
+        Route::get('/analytics', 'index')->name('admin.analytics');
+        Route::get('/analytics/data', 'data')->name('admin.analytics.data');
+    });
+
     // // route for products
     // Route::controller(ProductController::class)->group(function () {
     //     Route::get('/list-product', 'index');
@@ -260,7 +266,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::post('/embeds-update', 'update');
             Route::post('/embeds-delete', 'destroy');
         });
-        
+
         // route for teacher's dashboard information
         Route::controller(TeacherDashboardContentController::class)->group(function () {
             Route::get('/dashboard-content-list', 'index');
@@ -838,11 +844,11 @@ Route::group(['middleware' => ['admin']], function () {
         });
     });
 
-    Route::get('list-order', [OrderController::class, 'listOrder']);
-    Route::get('list-subscriber', [SubscriptionController::class, 'listSubscriber']);
-    Route::post('update-end-date', [SubscriptionController::class, 'updateEndDate']);
-    Route::post('update-user-access-count', [SubscriptionController::class, 'updateUserAccessCount']);
+    // Route::get('list-order', [OrderController::class, 'listOrder']);
 
-    // route for analytics
-    Route::get('/analytics', [AnalyticsController::class, 'index']);
+    Route::controller(SubscriptionController::class)->group(function () {
+        Route::get('subscriber-list', 'subscriberList');
+        Route::post('update-end-date', 'updateEndDate');
+        Route::post('update-user-access-count', 'updateUserAccessCount');
+    });
 });

@@ -222,7 +222,7 @@ class SubscriptionController extends Controller
     /**
      * Get the list of all subscribers from storage.
      */
-    public function listSubscriber(Request $request)
+    public function subscriberList(Request $request)
     {
         if ($request->ajax()) {
             // Expire any past-due subscriptions before listing
@@ -331,7 +331,7 @@ class SubscriptionController extends Controller
         return view('admin.content_management.subscribers.list');
     }
 
-    // public function listSubscriber(Request $request)
+    // public function subscriberList(Request $request)
     // {
     //     if ($request->ajax()) {
     //         $data = UserSubscription::with(['subscription', 'user'])->orderBy('id', 'DESC')->get();
