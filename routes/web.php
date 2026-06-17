@@ -67,13 +67,14 @@ use App\Http\Controllers\Admin\CMS\WeightPlasticAntweightController;
 use App\Http\Controllers\Admin\CMS\WeightSportsmanController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\ContentManagementController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\MediaContentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\GoogleAnalyticsAuthController;
+use Google\Api\Visibility;
 use Google\Service\Classroom\Teacher;
 
 /*
@@ -189,6 +190,10 @@ Route::group(['middleware' => ['admin']], function () {
             Route::post('/save-member', 'store');
             Route::post('/update-member', 'update');
             Route::post('/delete-member', 'destroy');
+        });
+
+        Route::controller(VisitorController::class)->group(function () {
+            Route::get('/list-visitor', 'index');
         });
     });
 
