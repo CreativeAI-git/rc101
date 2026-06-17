@@ -242,4 +242,5 @@ Route::controller(ContentManagementController::class)->group(function () {
     Route::get('get-all-weapons-systems', 'getAllWeaponsSystems');
 
     Route::post('contact-us', 'contactUs');
+    Route::post('save-visitor-email', 'saveVisitorEmail');
 });

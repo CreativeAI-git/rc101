@@ -59,6 +59,9 @@
                                 <li class="menu-header-title {{ request()->is('users/list-member', 'users/member-add', 'users/member-edit/*') ? 'active' : '' }} ps-0">
                                     <a href="{{ url('users/list-member') }}"><i class='bx bx-user'></i> Robot Combat Teams</a>
                                 </li>
+                                <li class="menu-header-title {{ request()->is('users/list-visitor') ? 'active' : '' }} ps-0">
+                                    <a href="{{ url('users/list-visitor') }}"><i class='bx bx-user'></i> Visitors</a>
+                                </li>
 
                             </ul>
                     </li>

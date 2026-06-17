@@ -54,6 +54,7 @@ use App\Models\Tournament;
 use App\Models\TurnaBot;
 use App\Models\TypesOfDriveSystem;
 use App\Models\VerticalSpinner;
+use App\Models\VisitorEmail;
 use App\Models\WeaponsSystem;
 use App\Models\WeightAntweight;
 use App\Models\WeightBeetleweight;
@@ -67,6 +68,7 @@ use App\Models\WeightSportsman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use View;
 
 class ContentManagementController extends Controller
 {
@@ -1425,6 +1427,68 @@ class ContentManagementController extends Controller
                 'message' => 'Failed to save your message. Please try again later.',
             ], 500);
         }
+    }
+
+    /**
+     * Write code on this method for save visitor email
+     *
+     * @return response()
+     */
+    public function saveVisitorEmail(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email:rfc,dns|max:255',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation Error!',
+                'data' => $validate->errors(),
+            ], 422);
+        }
+
+        $email = strtolower(trim($request->email));
+
+        $ipAddress = $request->ip();
+        $userAgent = $request->header('User-Agent');
+
+        $visitor = VisitorEmail::where('email', $email)->first();
+
+        if ($visitor) {
+
+            VisitorEmail::where('id', $visitor->id)
+                ->update([
+                    'visit_count'     => $visitor->visit_count + 1,
+                    'last_visited_at' => now(),
+                    'ip_address'      => $ipAddress,
+                    'user_agent'      => $userAgent,
+                    'updated_at'      => now(),
+                ]);
+
+            return response()->json([
+                'success' => true,
+                'already_exists' => true,
+                'message' => 'This email is already registered. Thank you for your continued interest!',
+            ], 200);
+        }
+
+        VisitorEmail::create([
+            'email'            => $email,
+            'visit_count'      => 1,
+            'first_visited_at' => now(),
+            'last_visited_at'  => now(),
+            'ip_address'       => $ipAddress,
+            'user_agent'       => $userAgent,
+            'created_at'       => now(),
+            'updated_at'       => now(),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'already_exists' => false,
+            'message' => 'Email saved successfully.',
+        ], 200);
     }
 
     /**
