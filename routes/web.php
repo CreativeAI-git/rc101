@@ -831,6 +831,10 @@ Route::group(['middleware' => ['admin']], function () {
             Route::post('/home-content-image', 'uploadCkEditorImageForHome')->name('home.content.image');
 
             // route for about page
+            Route::get('/visitor-content', 'editVisitorContent');
+            Route::post('/update-visitor-content', 'updateVisitorContent');
+
+            // route for about page
             Route::get('/about', 'editAbout');
             Route::post('/update-about', 'updateAbout');
             Route::post('/aboutus-content-image', 'uploadCkEditorImageForAboutUs')->name('aboutus.content.image');

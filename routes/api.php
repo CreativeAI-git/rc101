@@ -243,4 +243,5 @@ Route::controller(ContentManagementController::class)->group(function () {
 
     Route::post('contact-us', 'contactUs');
     Route::post('save-visitor-email', 'saveVisitorEmail');
+    Route::get('get-visitor-content', 'getVisitorContent');
 });
