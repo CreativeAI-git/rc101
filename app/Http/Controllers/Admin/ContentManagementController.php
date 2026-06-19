@@ -250,6 +250,49 @@ class ContentManagementController extends Controller
         return response()->json(['uploaded' => false, 'error' => ['message' => 'No file uploaded.']]);
     }
 
+    // this method is used to view for visitor content
+    public function editVisitorContent()
+    {
+        $data['visitorContent'] = DB::table('cms_visitor_emails')->first();
+        return view('admin.content_management.visitor_content', $data);
+    }
+
+    // this method is used to insert or update visitor content
+    public function updateVisitorContent(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:150',
+            'description' => 'required|string|max:255',
+        ]);
+
+        $cmsVisitorData = [
+            'title' => $request->input('title', ''),
+            'description' => $request->input('description', ''),
+        ];
+
+        $id = $request->id;
+
+        $cmsVisitorSection = null;
+        if ($id) {
+            $cmsVisitorSection = DB::table('cms_visitor_emails')->find($id);
+
+            if (!$cmsVisitorSection) {
+                return redirect('cms/visitor-content')->with('error_msg', 'No record found with the provided ID.');
+            }
+        }
+
+        // Insert or Update
+        if ($id) {
+            DB::table('cms_visitor_emails')->where('id', $id)->update($cmsVisitorData);
+            $message = 'Visitor content updated successfully!';
+        } else {
+            $id = DB::table('cms_visitor_emails')->insertGetId($cmsVisitorData);
+            $message = 'New visitor content added successfully!';
+        }
+
+        return redirect('cms/visitor-content')->with('success_msg', $message);
+    }
+
     // this method is used to view for league
     public function editLeague()
     {

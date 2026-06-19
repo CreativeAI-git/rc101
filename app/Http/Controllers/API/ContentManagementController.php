@@ -96,6 +96,30 @@ class ContentManagementController extends Controller
             ], 200);
         }
     }
+
+    /**
+     * Write code on this method for get visitor content
+     *
+     * @return response()
+     */
+    public function getVisitorContent()
+    {
+        $visitorContent = DB::table('cms_visitor_emails')->orderBy('id', 'DESC')->first();
+
+        if ($visitorContent) {
+            $response = [
+                'success' => true,
+                'message' => 'Visitor content retrieved successfully.',
+                'data' => $visitorContent,
+            ];
+            return response()->json($response, 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No data found!',
+            ], 200);
+        }
+    }
     /**
      * Write code on this method for get curriculum overview
      *

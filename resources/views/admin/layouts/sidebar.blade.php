@@ -127,6 +127,10 @@
                                 <li class="menu-header-title {{ request()->is('cms/dashboard-content-list', 'cms/dashboard-content-add', 'cms/dashboard-content-edit/*') ? 'active' : '' }} ps-0">
                                     <a href="{{ url('cms/dashboard-content-list') }}"><i class="bx bx-book-content"></i> Teacher Dashboard Content </a>
                                 </li>
+                                
+                                <li class="menu-header-title {{ request()->is('cms/visitor-content') ? 'active' : '' }} ps-0">
+                                    <a href="{{ url('cms/visitor-content') }}"><i class='bx bx-message-edit'></i> Visitor Content</a>
+                                </li>
 
                                 <li class="menu-header-title {{ request()->is('cms/embeds-list', 'cms/embeds-add', 'cms/embeds-edit/*') ? 'active' : '' }} ps-0">
                                     <a href="{{ url('cms/embeds-list') }}"><i class='bx bx-file'></i> Knowledgebase Articles</a>

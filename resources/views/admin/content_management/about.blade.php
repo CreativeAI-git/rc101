@@ -45,7 +45,7 @@
                                         <img
                                             id="about_banner"
                                             src="{{ $aboutSection && $aboutSection->about_banner ? asset('cms_images/' . $aboutSection->about_banner) : '' }}"
-                                            style="width: 100px; height: 100px; border-radius: 8px; display: <?= $aboutSection && $aboutSection->about_banner ? 'block' : 'none' ?>"
+                                            style="width: 100px; height: 100px; border-radius: 8px; display: <?= (!empty($aboutSection) && !empty($aboutSection->about_banner)) ? 'block' : 'none'; ?>"
                                             class="mt-2">
 
                                         @error('about_banner')
